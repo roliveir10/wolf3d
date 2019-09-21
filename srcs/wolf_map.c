@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 03:35:31 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 06:10:42 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 09:49:15 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,14 @@ static char			*wolf_getfile(int fd)
 		return (NULL);
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
+		buf[ret] = '\0';
 		if (!ft_isascii(buf[0]))
-		{
-			ft_strdel(&str);
-			return (NULL);
-		}
+			return (ft_strdel(&str));
 		if (!(str = ft_strjoinf(str, buf)))
-		{
-			ft_strdel(&str);
-			return (NULL);
-		}
+			return (ft_strdel(&str));
 	}
 	if (ret == -1)
-	{
-		ft_strdel(&str);
-		return (NULL);
-	}
+		return (ft_strdel(&str));
 	return (str);
 }
 
@@ -53,15 +45,21 @@ static t_token		*wolf_get_tokenlst(char *str)
 	while (str[i])
 	{
 		if (!ft_atoic(&str[i]) && str[i] == '\n')
-			wolf_alloc_token(&token, -1);
+		{
+			if (!wolf_alloc_token(&token, -1))
+				return (NULL);
+			i++;
+		}
 		else if (ft_atoic(&str[i]))
-			wolf_alloc_token(&token, ft_atoi_p(&str[i], &i));
+		{
+			if (!wolf_alloc_token(&token, ft_atoi_p(str, &i)))
+				return (NULL);
+		}
 		else
 		{
 			wolf_free_tokenlst(&token);
 			return (NULL);
 		}
-		i++;
 	}
 	return (token);
 }
@@ -86,7 +84,7 @@ static int			wolf_get_mapsize(t_token *token, int height)
 		}
 		token = token->next;
 	}
-	return (tmp);
+	return (height ? tmp + 1 : tmp);
 }
 
 void				wolf_fillmap(t_token *token, short ***map)

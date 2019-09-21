@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 04:08:27 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 05:37:43 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 09:42:56 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int				ft_atoic(const char *str)
 
 	final = 0;
 	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while (str[i] == 32)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		return (0);
 	if  (str[i] > '9' || str[i] < '0')
 		return (0);
-	while (str[i] <= '9' && str[i] <= '0')
+	while (str[i] <= '9' && str[i] >= '0')
 	{
 		final *= 10;
 		final += (str[i] - '0');

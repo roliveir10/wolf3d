@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 03:36:30 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 06:10:46 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 08:42:52 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int		wolf_usage(int argc)
 {
-	if (argc != 2)
+	if (argc < 2)
 	{
 		ft_putendl_fd("usage: ./wolf3d file", 2);
 		return (1);

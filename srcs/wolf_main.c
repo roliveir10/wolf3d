@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 06:10:44 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 09:52:26 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int				main(int argc, char **argv)
 	if (!(env.map.map = wolf_init(argc, argv, &env.map.x, &env.map.y)))
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
-	return (0);
 	wolf_initmlx(&env);
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
 	mlx_hook(env.mlx.id, REDBUTTON, 0, wolf_close, (void*)&env);
