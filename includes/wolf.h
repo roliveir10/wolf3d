@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 06:10:47 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/09/21 15:36:35 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define SCREENX 2080
 # define SCREENY 1170
+# define ANGLE 30
 
 # define NBR_KEY 5
 
@@ -43,6 +44,12 @@ typedef enum			e_key
 **	STRUCT
 */
 
+typedef	struct			s_vector2d
+{
+	double				x;
+	double				y;
+}						t_vector2d;
+
 typedef struct			s_mlx
 {
 	void				*mlx;
@@ -53,6 +60,12 @@ typedef struct			s_mlx
 	int					size_line;
 	int					endian;
 }						t_mlx;
+
+typedef struct			s_player
+{
+	t_vector2d			pos;
+	double				angle;
+}						t_player;
 
 typedef struct			s_token
 {
@@ -94,6 +107,7 @@ short					**wolf_getmap(int fd, int *sx, int *sy);
 **	alloc
 */
 
+void					intersect(double x, double y, double angle);
 int						wolf_alloc_token(t_token **token, int value);
 t_token					*wolf_alloc_first_token(int value);
 void					wolf_free_tokenlst(t_token **token);
