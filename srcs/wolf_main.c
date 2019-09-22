@@ -6,12 +6,14 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/22 14:20:48 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/22 17:59:51 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
 #include "wolf.h"
 
 void			wolf_delenv(t_env *env)
@@ -38,26 +40,29 @@ static void		wolf_initmlx(t_env *env)
 			&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
 }
 
-static void		wolf_loop(t_env *env)
+void			wolf_loop(t_env *env)
 {
 	int			i;
+	t_dist		structdist;
 	double		dist;
 
 	i = -1;
-	/*
-	** tmp
-	*/
-	env->player.pos.x = 10;
-	env->player.pos.y = 10;
-	/*
-	**
-	*/
+	env->player.angle = env->prot;
+	structdist = ray_cast(env->player, env->map);
+	printf("%d angle, %f dist\n[%f, %f]\n",
+			(int)(env->prot / M_PI * 180.0) % 360,
+			structdist.d, env->player.pos.x, env->player.pos.y);
 	while (++i < SCREENX)
 	{
-		env->player.angle = (i - SCREENX / 2.0) / SCREENX * 60.0 + env->prot;
-		dist = 5; //ray_cast(env->player, env->map);
+		env->player.angle = (i - SCREENX / 2.0) / SCREENX * ((60.0 * M_PI)
+				/ 180.0) + env->prot;
+		structdist = ray_cast(env->player, env->map);
+		dist = structdist.d;
+		if (i == SCREENX / 2)
+			dist = 1;
 		wolf_create_line(dist, env, i);
 	}
+
 	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
 			env->mlx.image, 0, 0);
 	return ;
@@ -75,8 +80,8 @@ int				main(int argc, char **argv)
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
 	//*****************
-	player.pos.x = 3.5;
-	player.pos.y = 4.5;
+	player.pos.x = 10.5;
+	player.pos.y = 10.5;
 	player.angle = 0.75;
 	dist = ray_cast(player, env.map);
 	ft_putnbr(dist.d);
