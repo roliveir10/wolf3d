@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/21 15:36:35 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/21 19:46:42 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ typedef struct			s_player
 	double				angle;
 }						t_player;
 
+typedef struct			s_dist
+{
+	double				d;
+	int					norm;
+	double				rel;
+}						t_dist;
+
 typedef struct			s_token
 {
 	short				value;
@@ -107,6 +114,7 @@ short					**wolf_getmap(int fd, int *sx, int *sy);
 **	alloc
 */
 
+t_dist					ray_cast(t_player player, t_map map);
 void					intersect(double x, double y, double angle);
 int						wolf_alloc_token(t_token **token, int value);
 t_token					*wolf_alloc_first_token(int value);

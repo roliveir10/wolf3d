@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/21 17:34:17 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/21 19:46:39 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,25 @@ static void		wolf_initmlx(t_env *env)
 	env->mlx.mem_image = (unsigned int*)mlx_get_data_addr(env->mlx.image,
 			&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
 }
-/*
-void			ray_cast(t_map map, t_env env)
-{
-	
-}
-*/
+
 int				main(int argc, char **argv)
 {
 	t_env		env;
+	t_dist		dist;
+	t_player	player;
 
 	ft_bzero(&env, sizeof(t_env));
 	if (!(env.map.map = wolf_init(argc, argv, &env.map.x, &env.map.y)))
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
-	//ray_cast(env.map.map, env);
+	//*****************
+	player.pos.x = 3.5;
+	player.pos.y = 4.5;
+	player.angle = 0.75;
+	dist = ray_cast(player, env.map);
+	ft_putnbr(dist.d);
+	//*****************
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
 	mlx_hook(env.mlx.id, REDBUTTON, 0, wolf_close, (void*)&env);
 	mlx_loop(env.mlx.mlx);
