@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/22 12:14:06 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:51:53 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		wolf_loop(t_env *env)
 	while (++i < SCREENX)
 	{
 		env->player.angle = (i - SCREENX / 2.0) / SCREENX * 60.0 + env->prot;
-		dist = 5.0; //ray_cast(env->player, env->map);
+		dist = 5; //ray_cast(env->player, env->map);
 		wolf_create_line(dist, env, i);
 	}
 	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
