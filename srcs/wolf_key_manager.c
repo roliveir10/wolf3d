@@ -6,10 +6,11 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 02:46:35 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 02:55:36 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:14:07 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "wolf.h"
 
 static void		wolf_escap(t_env *env, int keycode)
@@ -20,8 +21,14 @@ static void		wolf_escap(t_env *env, int keycode)
 
 static void		wolf_pos(t_env *env, int keycode)
 {
-	(void)env;
-	(void)keycode;	
+	if (keycode == KLEFT)
+		env->prot += 3.0 * M_PI / 180.0;
+	else if (keycode == KRIGHT)
+		env->prot -= 3.0 * M_PI / 180.0;
+	else if (keycode == KFOR)
+		env->player.pos.x += 5.0 * cos(env->prot);
+	else if (keycode == KBACK)
+		env->player.pos.y += 5.0 * sin(env->prot);
 }
 
 int				wolf_keypress(int keycode, void *param)

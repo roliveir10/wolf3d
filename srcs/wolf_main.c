@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/21 19:46:39 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/22 14:20:48 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,31 @@ static void		wolf_initmlx(t_env *env)
 			&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
 }
 
+static void		wolf_loop(t_env *env)
+{
+	int			i;
+	double		dist;
+
+	i = -1;
+	/*
+	** tmp
+	*/
+	env->player.pos.x = 10;
+	env->player.pos.y = 10;
+	/*
+	**
+	*/
+	while (++i < SCREENX)
+	{
+		env->player.angle = (i - SCREENX / 2.0) / SCREENX * 60.0 + env->prot;
+		dist = 5; //ray_cast(env->player, env->map);
+		wolf_create_line(dist, env, i);
+	}
+	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
+			env->mlx.image, 0, 0);
+	return ;
+}
+
 int				main(int argc, char **argv)
 {
 	t_env		env;
@@ -56,6 +81,7 @@ int				main(int argc, char **argv)
 	dist = ray_cast(player, env.map);
 	ft_putnbr(dist.d);
 	//*****************
+	wolf_loop(&env);
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
 	mlx_hook(env.mlx.id, REDBUTTON, 0, wolf_close, (void*)&env);
 	mlx_loop(env.mlx.mlx);

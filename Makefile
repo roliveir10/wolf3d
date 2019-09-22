@@ -6,14 +6,14 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/28 01:21:35 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/22 05:22:25 by roliveir         ###   ########.fr        #
+#    Updated: 2019/09/22 11:51:47 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include mk/srcs.mk
 
 CC = gcc
-LIBS = -lft
+LIBS = -lft -fsanitize=address
 LIBSFOLDERS = -L./libft
 vpath %.c $(dir MAKEFILE_LIST)
 MLX_FLAG = -lmlx -framework OpenGL -framework AppKit
