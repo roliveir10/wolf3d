@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/21 17:34:17 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:14:06 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,32 @@ static void		wolf_initmlx(t_env *env)
 	env->mlx.mem_image = (unsigned int*)mlx_get_data_addr(env->mlx.image,
 			&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
 }
-/*
-void			ray_cast(t_map map, t_env env)
+
+static void		wolf_loop(t_env *env)
 {
-	
+	int			i;
+	double		dist;
+
+	i = -1;
+	/*
+	** tmp
+	*/
+	env->player.pos.x = 10;
+	env->player.pos.y = 10;
+	/*
+	**
+	*/
+	while (++i < SCREENX)
+	{
+		env->player.angle = (i - SCREENX / 2.0) / SCREENX * 60.0 + env->prot;
+		dist = 5.0; //ray_cast(env->player, env->map);
+		wolf_create_line(dist, env, i);
+	}
+	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
+			env->mlx.image, 0, 0);
+	return ;
 }
-*/
+
 int				main(int argc, char **argv)
 {
 	t_env		env;
@@ -52,7 +72,7 @@ int				main(int argc, char **argv)
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
-	//ray_cast(env.map.map, env);
+	wolf_loop(&env);
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
 	mlx_hook(env.mlx.id, REDBUTTON, 0, wolf_close, (void*)&env);
 	mlx_loop(env.mlx.mlx);

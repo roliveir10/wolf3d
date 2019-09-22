@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/21 15:36:35 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:14:11 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct			s_env
 {
 	t_mlx				mlx;
 	t_map				map;
+	t_player			player;
+	double				prot;
 }						t_env;
 
 short					**wolf_init(int argc, char **argv, int *sx, int *sy);
@@ -112,4 +114,11 @@ int						wolf_alloc_token(t_token **token, int value);
 t_token					*wolf_alloc_first_token(int value);
 void					wolf_free_tokenlst(t_token **token);
 short					**wolf_alloc_map(int x, int y);
+
+/*
+**	print
+*/
+
+void					wolf_create_line(double dist, t_env *env, int pix);
+
 #endif
