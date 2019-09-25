@@ -96,6 +96,20 @@ typedef struct			s_env
 	double				prot;
 }						t_env;
 
+typedef struct			s_dda
+{
+	int					posx;
+	int					posy;
+	double				next_dx;
+	double				next_dy;
+	double				delta_x;
+	double				delta_y;
+	int					step_x;
+	int					step_y;
+	int					hit;
+	int					side;
+}						t_dda;
+
 short					**wolf_init(int argc, char **argv, int *sx, int *sy);
 void					wolf_delenv(t_env *env);
 

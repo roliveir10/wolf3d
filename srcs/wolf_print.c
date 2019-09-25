@@ -19,7 +19,7 @@ void		wolf_create_line(double dist, t_env *env, int pix)
 	int		limit;
 
 	i = -1;
-	size = (dist < 1.0 && dist) ? SCREENY : 1.0 / dist * SCREENY;
+	size = dist < 1.0 ? SCREENY : 1.0 / dist * SCREENY;
 	limit = (SCREENY - size) / 2;
 	while (++i < limit)
 		env->mlx.mem_image[i * env->mlx.size_line / 4 + pix] = 0x50AAFF;

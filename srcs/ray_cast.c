@@ -16,55 +16,64 @@
 #include <stdio.h>
 #include "libft.h"
 
+static void		ray_assign_value(t_vector2d pos, t_dda *dda, double alpha)
+{
+	double		tmpx;
+	double		tmpy;
+
+	dda->posx = (int)pos.x;
+	dda->posy = (int)pos.y;
+	dda->delta_x = fabs(1 / cos(alpha));
+	dda->delta_y = fabs(1 / cos(90 * M_PI / 180 - alpha));
+	tmpx = cos(alpha);
+	tmpy = sin(alpha);
+	dda->step_x = tmpx < 0 ? -1 : 1;
+	dda->step_y = tmpy < 0 ? -1 : 1;
+	if (tmpx < 0)
+		dda->next_dx = (pos.x - dda->posx) * dda->delta_x;
+	else
+		dda->next_dx = (dda->posx + 1.0 - pos.x) * dda->delta_x;
+	if (tmpy < 0)
+		dda->next_dy = (pos.y - dda->posy) * dda->delta_y;
+	else
+		dda->next_dy = (dda->posy + 1.0 - pos.y) * dda->delta_y;
+}
+
+static void		ray_dda(t_dda *dda, short **map)
+{
+	while (!dda->hit)
+	{
+		if (dda->next_dx < dda->next_dy)
+		{
+			dda->next_dx += dda->delta_x;
+			dda->posx += dda->step_x;
+			dda->side = 0;
+		}
+		else
+		{
+			dda->next_dy += dda->delta_y;
+			dda->posy += dda->step_y;
+			dda->side = 1;
+		}
+		if (map[dda->posy][dda->posx] == 1)
+			dda->hit = 1;
+	}
+}
+
 t_dist			ray_cast(t_player player, t_map map)
 {
+	t_dda		dda;
 	t_dist		dist;
-	int			startx;
-	double		f_x;
-	int			starty;
-	double		f_y;
-	int			addx;
-	int			addy;
 
-	dist.d = 1;
-	dist.norm = 0;
-	dist.rel = 0;
-	addx = cos(player.angle) > 0 ? 1 : -1;
-	addy = sin(player.angle) > 0 ? 1 : -1;
-	startx = addx > 0 ? ((int)player.pos.x) + 1 : (int)player.pos.x;
-	starty = addy > 0 ? ((int)player.pos.y) + 1 : (int)player.pos.y;
-	//startx = (int)player.pos.x + addx;
-	//starty = (int)player.pos.y + addy;
-	while (startx < map.x && startx > 0)
-	{
-		f_x = cos(player.angle) * startx + player.pos.y
-				- cos(player.angle) * player.pos.x;
-		if (!(f_x < 0 || f_x >= map.y))
-		{
-			if (map.map[startx - 1][(int)f_x] != map.map[startx][(int)f_x])
-			{
-				dist.d = sqrt(pow(player.pos.x - addx - (double)startx, 2)
-						+ pow(player.pos.y - f_x, 2));
-				return (dist);
-			}
-		}
-		startx += addx;
-	}
-	if (cos(player.angle) == 0)
-		return (dist);
-	while (starty < map.y && starty > 0)
-	{
-		f_y = (starty - player.pos.y) / cos(player.angle) + player.pos.x;
-		if (!(f_y < 0 || f_y > map.x))
-		{
-			if (map.map[starty - 1][(int)f_y] != map.map[starty][(int)f_y])
-			{
-				dist.d = sqrt(pow(player.pos.y - addy - (double)starty, 2)
-						+ pow(player.pos.x - f_y, 2));
-				return (dist);
-			}
-		}
-		starty += addy;
-	}
+	ft_bzero(&dda, sizeof(t_dda));
+	ft_bzero(&dist, sizeof(t_dist));
+	ray_assign_value(player.pos, &dda, player.angle);
+	ray_dda(&dda, map.map);
+	if (dda.side)
+		dist.d = (dda.posy - player.pos.y + (1 - dda.step_y) / 2)
+			/ sin(player.angle);
+	else
+		dist.d = (dda.posx - player.pos.x + (1 - dda.step_x) / 2)
+			/ sin(90 * M_PI / 180 - player.angle);
 	return (dist);
 }

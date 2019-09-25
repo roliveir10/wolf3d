@@ -47,19 +47,13 @@ void			wolf_loop(t_env *env)
 	double		dist;
 
 	i = -1;
-	env->player.angle = env->prot;
-	structdist = ray_cast(env->player, env->map);
-	printf("%d angle, %f dist\n[%f, %f]\n",
-			(int)(env->prot / M_PI * 180.0) % 360,
-			structdist.d, env->player.pos.x, env->player.pos.y);
 	while (++i < SCREENX)
 	{
 		env->player.angle = (i - SCREENX / 2.0) / SCREENX * ((60.0 * M_PI)
 				/ 180.0) + env->prot;
 		structdist = ray_cast(env->player, env->map);
 		dist = structdist.d;
-		if (i == SCREENX / 2)
-			dist = 1;
+		//printf("%.2f   ", dist);
 		wolf_create_line(dist, env, i);
 	}
 
@@ -71,8 +65,6 @@ void			wolf_loop(t_env *env)
 int				main(int argc, char **argv)
 {
 	t_env		env;
-	t_dist		dist;
-	t_player	player;
 
 	ft_bzero(&env, sizeof(t_env));
 	if (!(env.map.map = wolf_init(argc, argv, &env.map.x, &env.map.y)))
@@ -80,11 +72,8 @@ int				main(int argc, char **argv)
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
 	//*****************
-	player.pos.x = 10.5;
-	player.pos.y = 10.5;
-	player.angle = 0.75;
-	dist = ray_cast(player, env.map);
-	ft_putnbr(dist.d);
+	env.player.pos.x = 10.5;
+	env.player.pos.y = 10.5;
 	//*****************
 	wolf_loop(&env);
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
