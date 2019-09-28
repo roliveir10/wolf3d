@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:52:09 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/09/28 19:57:01 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 20:44:03 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ static void		ray_dda(t_dda *dda, short **map)
 	}
 }
 
+double			ft_mod(double nbr, int div)
+{
+	while (nbr > div)
+		nbr -= div;
+	while (nbr < -div)
+		nbr += div;
+	return (nbr);
+}
+
 t_dist			ray_cast(t_player player, t_map map)
 {
 	t_dda		dda;
@@ -73,6 +82,8 @@ t_dist			ray_cast(t_player player, t_map map)
 	{
 		dist.d = (dda.posy - player.pos.y + (1 - dda.step_y) / 2)
 			/ sin(player.angle);
+		dist.rel = ft_mod((dda.posy - player.pos.y + (1 - dda.step_y) / 2)
+			* cos(player.angle), 1);
 		dist.norm += 2;
 		if (sin(player.angle) > 0)
 			dist.norm++;
@@ -81,6 +92,8 @@ t_dist			ray_cast(t_player player, t_map map)
 	{
 		dist.d = (dda.posx - player.pos.x + (1 - dda.step_x) / 2)
 			/ sin(90 * M_PI / 180 - player.angle);
+		dist.rel = ft_mod((dda.posx - player.pos.x + (1 - dda.step_x) / 2)
+			* sin(player.angle), 1);
 		if (cos(player.angle) > 0)
 			dist.norm++;
 	}
