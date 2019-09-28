@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:52:09 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/09/22 17:59:49 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 19:32:42 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,19 @@ t_dist			ray_cast(t_player player, t_map map)
 	ray_assign_value(player.pos, &dda, player.angle);
 	ray_dda(&dda, map.map);
 	if (dda.side)
+	{
 		dist.d = (dda.posy - player.pos.y + (1 - dda.step_y) / 2)
 			/ sin(player.angle);
+		dist.norm += 2;
+		if (sin(player.angle) > 0)
+			dist.norm++;
+	}
 	else
+	{
 		dist.d = (dda.posx - player.pos.x + (1 - dda.step_x) / 2)
 			/ sin(90 * M_PI / 180 - player.angle);
+		if (cos(player.angle) > 0)
+			dist.norm++;
+	}
 	return (dist);
 }

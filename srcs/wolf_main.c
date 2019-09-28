@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/28 13:20:04 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:25:22 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void			wolf_loop(t_env *env)
 {
 	int			i;
 	t_dist		structdist;
-	double		dist;
 
 	i = -1;
 	while (++i < SCREENX)
@@ -52,8 +51,8 @@ void			wolf_loop(t_env *env)
 		env->player.angle = (i - SCREENX / 2.0) / SCREENX * ((60.0 * M_PI)
 				/ 180.0) + env->prot;
 		structdist = ray_cast(env->player, env->map);
-		dist = structdist.d;
-		wolf_create_line(dist, env, i);
+		structdist.d = structdist.d * cos(-env->player.angle + env->prot);
+		wolf_create_line(structdist, env, i);
 	}
 	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
 			env->mlx.image, 0, 0);

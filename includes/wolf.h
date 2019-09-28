@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/28 13:26:33 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:26:55 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ short					**wolf_alloc_map(int x, int y);
 **	print
 */
 
-void					wolf_create_line(double dist, t_env *env, int pix);
+void					wolf_create_line(t_dist dist, t_env *env, int pix);
 void					wolf_loop(t_env *env);
 
 #endif
