@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/22 17:59:54 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:26:33 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void					wolf_delenv(t_env *env);
 
 int						wolf_keypress(int keycode, void *param);
 int						wolf_close(void *param);
+int						wall_block(t_env *env, t_vector2d tmp);
 
 /*
 **	parsing
@@ -134,7 +135,7 @@ t_dist					ray_cast(t_player player, t_map map);
 void					intersect(double x, double y, double angle);
 int						wolf_alloc_token(t_token **token, int value);
 t_token					*wolf_alloc_first_token(int value);
-void					wolf_free_tokenlst(t_token **token);
+t_token					*wolf_free_tokenlst(t_token **token);
 short					**wolf_alloc_map(int x, int y);
 
 /*

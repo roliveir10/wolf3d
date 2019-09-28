@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 03:35:31 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 09:49:15 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:54:40 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ static t_token		*wolf_get_tokenlst(char *str)
 				return (NULL);
 		}
 		else
-		{
-			wolf_free_tokenlst(&token);
-			return (NULL);
-		}
+			return (wolf_free_tokenlst(&token));
 	}
 	return (token);
 }

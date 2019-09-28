@@ -6,19 +6,20 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 04:21:05 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 06:10:41 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:54:39 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "wolf.h"
 
-void				wolf_free_tokenlst(t_token **token)
+t_token				*wolf_free_tokenlst(t_token **token)
 {
 	if (*token && (*token)->next)
 		wolf_free_tokenlst(&(*token)->next);
 	if (*token)
 		ft_memdel((void**)token);
+	return (NULL);
 }
 
 void				wolf_free_map(int y, short ***map)

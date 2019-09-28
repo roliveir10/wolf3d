@@ -6,12 +6,13 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 02:46:35 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/22 17:59:53 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:12:24 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "wolf.h"
+#define COEFF 0.1
 
 static void		wolf_escap(t_env *env, int keycode)
 {
@@ -21,19 +22,25 @@ static void		wolf_escap(t_env *env, int keycode)
 
 static void		wolf_pos(t_env *env, int keycode)
 {
+	t_vector2d	tmp;
+
 	if (keycode == KLEFT)
 		env->prot += 3.0 * M_PI / 180.0;
 	else if (keycode == KRIGHT)
 		env->prot -= 3.0 * M_PI / 180.0;
 	else if (keycode == KFOR)
 	{
-		env->player.pos.x += 1.0 * cos(env->prot);
-		env->player.pos.y += 1.0 * sin(env->prot);
+		tmp = env->player.pos;
+		env->player.pos.x += COEFF * cos(env->prot);
+		env->player.pos.y += COEFF * sin(env->prot);
+		wall_block(env, tmp);
 	}
 	else if (keycode == KBACK)
 	{
-		env->player.pos.x -= 1.0 * cos(env->prot);
-		env->player.pos.y -= 1.0 * sin(env->prot);
+		tmp = env->player.pos;
+		env->player.pos.x -= COEFF * cos(env->prot);
+		env->player.pos.y -= COEFF * sin(env->prot);
+		wall_block(env, tmp);
 	}
 	wolf_loop(env);
 }

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/22 17:59:51 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:20:04 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ void			wolf_loop(t_env *env)
 				/ 180.0) + env->prot;
 		structdist = ray_cast(env->player, env->map);
 		dist = structdist.d;
-		//printf("%.2f   ", dist);
 		wolf_create_line(dist, env, i);
 	}
-
 	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
 			env->mlx.image, 0, 0);
 	return ;
@@ -71,10 +69,8 @@ int				main(int argc, char **argv)
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
-	//*****************
-	env.player.pos.x = 10.5;
-	env.player.pos.y = 10.5;
-	//*****************
+	env.player.pos.x = 1.5;
+	env.player.pos.y = 1.5;
 	wolf_loop(&env);
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
 	mlx_hook(env.mlx.id, REDBUTTON, 0, wolf_close, (void*)&env);

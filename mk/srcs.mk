@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 10:04:52 by roliveir          #+#    #+#              #
-#    Updated: 2019/09/22 14:19:54 by oboutrol         ###   ########.fr        #
+#    Updated: 2019/09/28 12:40:50 by oboutrol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ WOLF =		wolf_main.c			\
 			wolf_map.c			\
 			wolf_alloc.c		\
 			ray_cast.c			\
+			wall_block.c		\
 			wolf_print.c
 
 WOLF_SRCS = $(addprefix $(WOLF_PATH),$(WOLF))
