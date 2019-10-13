@@ -6,14 +6,13 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/28 20:48:59 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/10/13 02:05:59 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
 #include "wolf.h"
 
 void			wolf_delenv(t_env *env)
@@ -68,11 +67,14 @@ int				main(int argc, char **argv)
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
+	wolf_load_texture(&env);
 	env.player.pos.x = 1.5;
 	env.player.pos.y = 1.5;
 	wolf_loop(&env);
 	mlx_hook(env.mlx.id, KEYPRESS, 0, wolf_keypress, (void*)&env);
 	mlx_hook(env.mlx.id, REDBUTTON, 0, wolf_close, (void*)&env);
+	mlx_hook(env.mlx.id, KEYRELEASE, 0, wolf_keyrelease, (void*)&env);
+	mlx_hook(env.mlx.id, MOUSEMOVE, 0, wolf_mouse_move, (void*)&env);
 	mlx_loop(env.mlx.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/28 18:26:55 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/10/13 08:23:24 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define SCREENX 2080
 # define SCREENY 1170
 # define ANGLE 30
+# define COEFF 0.2
 
 # define NBR_KEY 5
 
@@ -28,6 +29,8 @@
 typedef enum			e_event
 {
 	KEYPRESS = 2,
+	KEYRELEASE = 3,
+	MOUSEMOVE = 6,
 	REDBUTTON = 17
 }						t_event;
 
@@ -71,7 +74,6 @@ typedef struct			s_dist
 {
 	double				d;
 	int					norm;
-	double				rel;
 }						t_dist;
 
 typedef struct			s_token
@@ -88,12 +90,23 @@ typedef struct			s_map
 	int					y;
 }						t_map;
 
+typedef struct			s_texture
+{
+	char				*buffer[4];
+	char				*buffer_ptr[4];
+	int					width[4];
+	int					height[4];
+}						t_texture;
+
 typedef struct			s_env
 {
 	t_mlx				mlx;
 	t_map				map;
 	t_player			player;
+	char				keypress[NBR_KEY];
 	double				prot;
+	t_texture			t;
+
 }						t_env;
 
 typedef struct			s_dda
@@ -118,7 +131,9 @@ void					wolf_delenv(t_env *env);
 */
 
 int						wolf_keypress(int keycode, void *param);
+int						wolf_keyrelease(int keycode, void *param);
 int						wolf_close(void *param);
+int						wolf_mouse_move(int x, int y, void *param);
 int						wall_block(t_env *env, t_vector2d tmp);
 
 /*
@@ -126,6 +141,12 @@ int						wall_block(t_env *env, t_vector2d tmp);
 */
 
 short					**wolf_getmap(int fd, int *sx, int *sy);
+
+/*
+**	texture
+*/
+
+void					wolf_load_texture(t_env *env);
 
 /*
 **	alloc
