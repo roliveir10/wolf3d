@@ -14,26 +14,26 @@
 #include <mlx.h>
 #include "wolf.h"
 
-void			wolf_load_texture(t_env *env)
+int				wolf_load_texture(t_env *env)
 {
-	int			fd;
-	char		*path[4] = {"textures/brick.xpm", "textures/blur.marble.xpm",
+	int				fd;
+	static char		*path[4] = {"textures/brick.xpm", "textures/blur.xpm",
 		"textures/rock.xpm", "textures/wood.xpm"};
-	int			i;
+	int				i;
 
 	i = -1;
-	return ;
 	while (++i < 4)
 	{
-		if ((fd = open(path[i], O_RDONLY)) < 0)
-			return ;
-		if (!(env->t.buffer[i] = mlx_xpm_file_to_image(env->mlx.mlx, path[i], &env->t.width[i], &env->t.height[i])))
+		if ((fd = open(path[i], O_RDONLY)) < 0
+			|| !(env->t.buffer[i] = mlx_xpm_file_to_image(env->mlx.mlx,
+			path[i], &env->t.width[i], &env->t.height[i])))
 		{
 			ft_putendl_fd(path[i], 2);
 			ft_putstr_fd("wolf: can not read texture\n", 2);
-			return ;
+			return (0);
 		}
 		env->t.buffer_ptr[i] = mlx_get_data_addr(env->t.buffer[i],
-				&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
+				&env->t.pix[i], &env->t.size_line[i], &env->t.endian[i]);
 	}
+	return (1);
 }

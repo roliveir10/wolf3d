@@ -39,7 +39,7 @@ static void		ray_assign_value(t_vector2d pos, t_dda *dda, double alpha)
 		dda->next_dy = (dda->posy + 1.0 - pos.y) * dda->delta_y;
 }
 
-static void		ray_dda(t_dda *dda, short **map)
+static void		ray_dda(t_dda *dda, short **map, t_vector2d pos)
 {
 	while (!dda->hit)
 	{
@@ -58,6 +58,10 @@ static void		ray_dda(t_dda *dda, short **map)
 		if (map[dda->posy][dda->posx] == 1)
 			dda->hit = 1;
 	}
+	if (!dda->side)
+		dda->pwd = (dda->posx - pos.x + (1 - dda->step_x) / 2);
+	else
+		dda->pwd = (dda->posy - pos.y + (1 - dda->step_y) / 2);
 }
 
 t_dist			ray_cast(t_player player, t_map map)
@@ -68,7 +72,7 @@ t_dist			ray_cast(t_player player, t_map map)
 	ft_bzero(&dda, sizeof(t_dda));
 	ft_bzero(&dist, sizeof(t_dist));
 	ray_assign_value(player.pos, &dda, player.angle);
-	ray_dda(&dda, map.map);
+	ray_dda(&dda, map.map, player.pos);
 	if (dda.side)
 	{
 		dist.d = (dda.posy - player.pos.y + (1 - dda.step_y) / 2)
@@ -81,5 +85,7 @@ t_dist			ray_cast(t_player player, t_map map)
 			/ sin(90 * M_PI / 180 - player.angle);
 		dist.norm = sin(90 * M_PI / 180 - player.angle) > 0 ? 3 : 4;
 	}
+	dist.pos.x = dda.posx;
+	dist.pos.y = dda.posy;
 	return (dist);
 }

@@ -74,6 +74,7 @@ typedef struct			s_dist
 {
 	double				d;
 	int					norm;
+	t_vector2d			pos;
 }						t_dist;
 
 typedef struct			s_token
@@ -96,6 +97,11 @@ typedef struct			s_texture
 	char				*buffer_ptr[4];
 	int					width[4];
 	int					height[4];
+	int					pix[4];
+	int					size_line[4];
+	int					endian[4];
+
+
 }						t_texture;
 
 typedef struct			s_env
@@ -121,6 +127,7 @@ typedef struct			s_dda
 	int					step_y;
 	int					hit;
 	int					side;
+	int					pwd;
 }						t_dda;
 
 short					**wolf_init(int argc, char **argv, int *sx, int *sy);
@@ -146,7 +153,7 @@ short					**wolf_getmap(int fd, int *sx, int *sy);
 **	texture
 */
 
-void					wolf_load_texture(t_env *env);
+int						wolf_load_texture(t_env *env);
 
 /*
 **	alloc

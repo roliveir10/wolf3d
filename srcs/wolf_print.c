@@ -31,7 +31,7 @@ void		wolf_create_line(t_dist s, t_env *env, int pix)
 	limit += size;
 	while (i < limit && i < SCREENY)
 	{
-		env->mlx.mem_image[i * env->mlx.size_line / 4 + pix] = s.norm * 10000000;
+		env->mlx.mem_image[i * env->mlx.size_line / 4 + pix] = (unsigned int)(env->t.buffer_ptr[0]);
 		i++;
 	}
 	limit += (SCREENY - size) / 2;

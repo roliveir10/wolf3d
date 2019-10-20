@@ -67,7 +67,8 @@ int				main(int argc, char **argv)
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
-	wolf_load_texture(&env);
+	if (!wolf_load_texture(&env))
+		return (1);
 	env.player.pos.x = 1.5;
 	env.player.pos.y = 1.5;
 	wolf_loop(&env);
