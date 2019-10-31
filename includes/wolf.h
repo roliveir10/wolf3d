@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/10/13 08:23:24 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:34:31 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct			s_dist
 {
 	double				d;
 	int					norm;
+	double				rel;
 	t_vector2d			pos;
 }						t_dist;
 

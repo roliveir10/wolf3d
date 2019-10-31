@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:52:09 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/10/12 13:32:09 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:34:01 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ static void		ray_assign_value(t_vector2d pos, t_dda *dda, double alpha)
 
 	dda->posx = (int)pos.x;
 	dda->posy = (int)pos.y;
-	dda->delta_x = fabs(1 / cos(alpha));
-	dda->delta_y = fabs(1 / cos(90 * M_PI / 180 - alpha));
 	tmpx = cos(alpha);
 	tmpy = sin(alpha);
+	dda->delta_x = fabs(1 / tmpx);//pour 1 cran sur x, de combien sur y
+	dda->delta_y = fabs(1 / tmpy);//pour 1 cran sur y, de combien sur x
 	dda->step_x = tmpx < 0 ? -1 : 1;
 	dda->step_y = tmpy < 0 ? -1 : 1;
 	if (tmpx < 0)
-		dda->next_dx = (pos.x - dda->posx) * dda->delta_x;
+		dda->next_dx = (pos.x - dda->posx) * dda->delta_x;//sur y
 	else
 		dda->next_dx = (dda->posx + 1.0 - pos.x) * dda->delta_x;
 	if (tmpy < 0)
-		dda->next_dy = (pos.y - dda->posy) * dda->delta_y;
+		dda->next_dy = (pos.y - dda->posy) * dda->delta_y;//sur x
 	else
 		dda->next_dy = (dda->posy + 1.0 - pos.y) * dda->delta_y;
 }
@@ -64,6 +64,19 @@ static void		ray_dda(t_dda *dda, short **map, t_vector2d pos)
 		dda->pwd = (dda->posy - pos.y + (1 - dda->step_y) / 2);
 }
 
+double			dbl_mod(double value, int mod)
+{
+	if (mod == 0)
+		return (0);
+	if (mod < 0)
+		mod = -mod;
+	while (value < 0)
+		value += mod;
+	while (value > mod)
+		value -= mod;
+	return (value);
+}
+
 t_dist			ray_cast(t_player player, t_map map)
 {
 	t_dda		dda;
@@ -77,12 +90,14 @@ t_dist			ray_cast(t_player player, t_map map)
 	{
 		dist.d = (dda.posy - player.pos.y + (1 - dda.step_y) / 2)
 			/ sin(player.angle);
+		dist.rel = dbl_mod(player.pos.x + dist.d * cos(player.angle), 1);
 		dist.norm = sin(player.angle) > 0 ? 1 : 2;
 	}
 	else
 	{
 		dist.d = (dda.posx - player.pos.x + (1 - dda.step_x) / 2)
 			/ sin(90 * M_PI / 180 - player.angle);
+		dist.rel = dbl_mod(player.pos.y + dist.d * sin(player.angle), 1);
 		dist.norm = sin(90 * M_PI / 180 - player.angle) > 0 ? 3 : 4;
 	}
 	dist.pos.x = dda.posx;
