@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 02:46:35 by roliveir          #+#    #+#             */
-/*   Updated: 2019/10/12 12:57:12 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/10/31 17:42:15 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ static void		wolf_pos(t_env *env, int keycode)
 	if (keycode == KLEFT)
 	{
 		tmp = env->player.pos;
-		env->player.pos.x -= COEFF * tan(env->prot);
-		env->player.pos.y -= COEFF * cos(env->prot);
+		env->player.pos.x += COEFF * cos(env->prot - M_PI / 2);
+		env->player.pos.y += COEFF * sin(env->prot - M_PI / 2);
 		wall_block(env, tmp);
 	}
 	else if (keycode == KRIGHT)
 	{
 		tmp = env->player.pos;
-		env->player.pos.x += COEFF * tan(env->prot);
-		env->player.pos.y += COEFF * cos(env->prot);
+		env->player.pos.x += COEFF * cos(env->prot + M_PI / 2);
+		env->player.pos.y += COEFF * sin(env->prot + M_PI / 2);
 		wall_block(env, tmp);
 	}
 	else if (keycode == KFOR)

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:52:09 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/10/31 15:34:01 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:42:40 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static void		ray_assign_value(t_vector2d pos, t_dda *dda, double alpha)
 	dda->posy = (int)pos.y;
 	tmpx = cos(alpha);
 	tmpy = sin(alpha);
-	dda->delta_x = fabs(1 / tmpx);//pour 1 cran sur x, de combien sur y
-	dda->delta_y = fabs(1 / tmpy);//pour 1 cran sur y, de combien sur x
+	dda->delta_x = fabs(1 / tmpx);
+	dda->delta_y = fabs(1 / tmpy);
 	dda->step_x = tmpx < 0 ? -1 : 1;
 	dda->step_y = tmpy < 0 ? -1 : 1;
 	if (tmpx < 0)
-		dda->next_dx = (pos.x - dda->posx) * dda->delta_x;//sur y
+		dda->next_dx = (pos.x - dda->posx) * dda->delta_x;
 	else
 		dda->next_dx = (dda->posx + 1.0 - pos.x) * dda->delta_x;
 	if (tmpy < 0)
-		dda->next_dy = (pos.y - dda->posy) * dda->delta_y;//sur x
+		dda->next_dy = (pos.y - dda->posy) * dda->delta_y;
 	else
 		dda->next_dy = (dda->posy + 1.0 - pos.y) * dda->delta_y;
 }
