@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 18:11:06 by roliveir          #+#    #+#             */
-/*   Updated: 2019/11/02 11:41:19 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/11/02 15:23:58 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		wolf_getcolor(t_texture img, int x, int y, int no)
 	if (color == -120 && img.buffer_ptr[no][c + 1] == 0
 		&& img.buffer_ptr[no][c + 2] == -104)
 		return (0xFF0000);
-	color += img.buffer_ptr[no][c + 1] * 256;
-	color += img.buffer_ptr[no][c + 2] * 256 * 256;
+	color += (unsigned char)img.buffer_ptr[no][c + 1] * 256;
+	color += (unsigned char)img.buffer_ptr[no][c + 2] * 256 * 256;
 	return (color);
 }
 
