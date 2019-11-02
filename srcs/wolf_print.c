@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 18:11:06 by roliveir          #+#    #+#             */
-/*   Updated: 2019/11/02 15:23:58 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/11/02 17:24:40 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		wolf_create_line(t_dist s, t_env *env, int pix)
 
 	column = wolf_get_column(s, env);
 	i = -1;
-	size = s.d < 1.0 ? SCREENY : 2 * SCREENY / s.d;
+	size = 2 * SCREENY / s.d;
 	limit = (SCREENY - size) / 2;
 	while (++i < limit)
 		env->mlx.mem_image[i * env->mlx.size_line / 4 + pix] = 0x50AAFF;
