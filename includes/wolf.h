@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/10/31 17:42:13 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/11/02 09:55:43 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _WOLF_H
 
 # include "libft.h"
+# include <mlx.h>
 
 # define SCREENX 2080
 # define SCREENY 1170
@@ -101,7 +102,6 @@ typedef struct			s_texture
 	int					pix[4];
 	int					size_line[4];
 	int					endian[4];
-
 
 }						t_texture;
 
