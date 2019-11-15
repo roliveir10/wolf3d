@@ -58,39 +58,12 @@ void			wolf_loop(t_env *env)
 	return ;
 }
 
-static int		wolf_check_map(short **map, int x, int y)
-{
-	int			i;
-	int			error;
-
-	i = -1;
-	error = 1;
-	while (++i < x)
-		if (!map[0][i])
-			error = 0;
-	i = -1;
-	while (++i < x)
-		if (!map[y - 1][i])
-			error = 0;
-	i = -1;
-	while (++i < y)
-		if (!map[i][0])
-			error = 0;
-	i = -1;
-	while (++i < y)
-		if (!map[i][x - 1])
-			error = 0;
-	if (!error)
-		ft_putendl_fd("wolf3d: map error", 2);
-	return (error);
-}
-
 int				main(int argc, char **argv)
 {
 	t_env		env;
 
 	ft_bzero(&env, sizeof(t_env));
-	if (!(env.map.map = wolf_init(argc, argv, &env.map.x, &env.map.y)))
+	if (!(env.map.map = wolf_init(argc, argv, &env)))
 		return (1);
 	if (!(wolf_check_map(env.map.map, env.map.x, env.map.y)))
 		return (1);

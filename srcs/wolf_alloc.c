@@ -54,7 +54,7 @@ int					wolf_alloc_token(t_token **token, int value)
 		return (0);
 	}
 	(*token)->next->value = value;
-	(*token)->next->eol = value < 0 ? 1 : 0;
+	(*token)->next->eol = value == -1 ? 1 : 0;
 	*token = tmp;
 	return (1);
 }

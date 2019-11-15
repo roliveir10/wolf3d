@@ -23,7 +23,7 @@ static int		wolf_usage(int argc)
 	return (0);
 }
 
-short			**wolf_init(int argc, char **argv, int *sx, int *sy)
+short			**wolf_init(int argc, char **argv, t_env *env)
 {
 	int			fd;
 	short		**map;
@@ -36,7 +36,7 @@ short			**wolf_init(int argc, char **argv, int *sx, int *sy)
 		ft_putendl_fd(argv[1], 2);
 		return (0);
 	}
-	if (!(map = wolf_getmap(fd, sx, sy)))
+	if (!(map = wolf_getmap(fd, &env->map.x, &env->map.y)))
 	{
 		ft_putendl_fd("wolf3d: map error", 2);
 		return (0);

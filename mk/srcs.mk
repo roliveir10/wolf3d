@@ -21,7 +21,8 @@ WOLF =		wolf_main.c				\
 			wall_block.c			\
 			wolf_print.c			\
 			wolf_mouse_handler.c	\
-			wolf_texture.c
+			wolf_texture.c			\
+			wolf_check.c
 
 WOLF_SRCS = $(addprefix $(WOLF_PATH),$(WOLF))
 SRCS += $(WOLF_SRCS)
