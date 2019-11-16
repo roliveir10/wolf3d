@@ -131,7 +131,7 @@ typedef struct			s_dda
 	int					pwd;
 }						t_dda;
 
-short					**wolf_init(int argc, char **argv, int *sx, int *sy);
+short					**wolf_init(int argc, char **argv, t_env *env);
 void					wolf_delenv(t_env *env);
 
 /*
@@ -149,6 +149,8 @@ int						wall_block(t_env *env, t_vector2d tmp);
 */
 
 short					**wolf_getmap(int fd, int *sx, int *sy);
+int						wolf_check_map(short **map, int x, int y);
+int						wolf_check_player(char **str);
 
 /*
 **	texture

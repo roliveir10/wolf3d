@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 01:58:04 by roliveir          #+#    #+#             */
-/*   Updated: 2019/11/02 14:33:38 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/11/16 09:52:29 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int					wolf_load_texture(t_env *env)
 {
 	int				fd;
-	static char		*path[4] = {"textures/brick.xpm", "textures/blur.xpm",
+	static char		*path[4] = {"textures/brick.xpm", "textures/brick2.xpm",
 		"textures/rock.xpm", "textures/wood.xpm"};
 	int				i;
 

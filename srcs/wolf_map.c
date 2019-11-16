@@ -115,6 +115,8 @@ short				**wolf_getmap(int fd, int *sx, int *sy)
 
 	if (!(str = wolf_getfile(fd)))
 		return (NULL);
+	if (wolf_check_player(&str) != 1)
+		return (NULL);
 	token = wolf_get_tokenlst(str);
 	ft_strdel(&str);
 	if (!token)

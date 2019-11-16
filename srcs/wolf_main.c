@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:51:37 by roliveir          #+#    #+#             */
-/*   Updated: 2019/11/02 09:48:15 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/11/02 15:20:17 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			wolf_loop(t_env *env)
 	t_dist		structdist;
 
 	i = -1;
-	while (++i < SCREENX)
+	while ((i += 2) < SCREENX)
 	{
 		env->player.angle = (i - SCREENX / 2.0) / SCREENX * ((60.0 * M_PI)
 				/ 180.0) + env->prot;
@@ -63,7 +63,9 @@ int				main(int argc, char **argv)
 	t_env		env;
 
 	ft_bzero(&env, sizeof(t_env));
-	if (!(env.map.map = wolf_init(argc, argv, &env.map.x, &env.map.y)))
+	if (!(env.map.map = wolf_init(argc, argv, &env)))
+		return (1);
+	if (!(wolf_check_map(env.map.map, env.map.x, env.map.y)))
 		return (1);
 	ft_print_digit_tables(env.map.map, env.map.x, env.map.y);
 	wolf_initmlx(&env);
