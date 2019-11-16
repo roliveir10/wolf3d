@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 03:35:31 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/28 13:54:40 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/11/16 12:41:23 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ static t_token		*wolf_get_tokenlst(char *str)
 		else if (ft_atoic(&str[i]))
 		{
 			if (!wolf_alloc_token(&token, ft_atoi_p(str, &i)))
+				return (NULL);
+		}
+		else if (wolf_atoi_player(str, &i))
+		{
+			str[i] = '0';
+			ft_atoi_p(str, &i);
+			if (!wolf_alloc_token(&token, -2))
 				return (NULL);
 		}
 		else
@@ -107,7 +114,7 @@ void				wolf_fillmap(t_token *token, short ***map)
 	}
 }
 
-short				**wolf_getmap(int fd, int *sx, int *sy)
+short				**wolf_getmap(int fd, t_env *env)
 {
 	char			*str;
 	short			**map;
@@ -121,9 +128,10 @@ short				**wolf_getmap(int fd, int *sx, int *sy)
 	ft_strdel(&str);
 	if (!token)
 		return (NULL);
-	*sy = wolf_get_mapsize(token, 1);
-	*sx = wolf_get_mapsize(token, 0);
-	if (!(map = wolf_alloc_map(*sx, *sy)))
+	env->map.y = wolf_get_mapsize(token, 1);
+	env->map.x = wolf_get_mapsize(token, 0);
+	env->player.pos = wolf_get_player_pos(*env, token);
+	if (!(map = wolf_alloc_map(env->map.x, env->map.y)))
 		return (NULL);
 	wolf_fillmap(token, &map);
 	wolf_free_tokenlst(&token);

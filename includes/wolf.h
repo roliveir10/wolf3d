@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 01:50:50 by roliveir          #+#    #+#             */
-/*   Updated: 2019/11/02 09:55:43 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/11/16 13:49:10 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "libft.h"
 # include <mlx.h>
 
-# define SCREENX 2080
-# define SCREENY 1170
+# define SCREENX 1040
+# define SCREENY 700
 # define ANGLE 30
 # define COEFF 0.2
 
@@ -83,6 +83,7 @@ typedef struct			s_token
 {
 	short				value;
 	char				eol;
+	char				player;
 	struct s_token		*next;
 }						t_token;
 
@@ -141,16 +142,17 @@ void					wolf_delenv(t_env *env);
 int						wolf_keypress(int keycode, void *param);
 int						wolf_keyrelease(int keycode, void *param);
 int						wolf_close(void *param);
-int						wolf_mouse_move(int x, int y, void *param);
 int						wall_block(t_env *env, t_vector2d tmp);
 
 /*
 **	parsing
 */
 
-short					**wolf_getmap(int fd, int *sx, int *sy);
+short					**wolf_getmap(int fd, t_env *env);
 int						wolf_check_map(short **map, int x, int y);
 int						wolf_check_player(char **str);
+int						wolf_atoi_player(char *str, int *i);
+t_vector2d				wolf_get_player_pos(t_env env, t_token *token);
 
 /*
 **	texture

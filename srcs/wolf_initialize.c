@@ -6,11 +6,12 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 03:36:30 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/22 17:21:47 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/11/16 12:46:07 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+#include <unistd.h>
 #include "wolf.h"
 
 static int		wolf_usage(int argc)
@@ -36,10 +37,12 @@ short			**wolf_init(int argc, char **argv, t_env *env)
 		ft_putendl_fd(argv[1], 2);
 		return (0);
 	}
-	if (!(map = wolf_getmap(fd, &env->map.x, &env->map.y)))
+	if (!(map = wolf_getmap(fd, env)))
 	{
 		ft_putendl_fd("wolf3d: map error", 2);
+		close(fd);
 		return (0);
 	}
+	close(fd);
 	return (map);
 }

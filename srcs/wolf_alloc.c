@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 04:21:05 by roliveir          #+#    #+#             */
-/*   Updated: 2019/09/28 13:54:39 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/11/16 10:00:41 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int					wolf_alloc_token(t_token **token, int value)
 		return (0);
 	}
 	(*token)->next->value = value;
+	if (value == -2)
+	{
+		(*token)->next->value = 0;
+		(*token)->next->player = 1;
+	}
 	(*token)->next->eol = value == -1 ? 1 : 0;
 	*token = tmp;
 	return (1);
